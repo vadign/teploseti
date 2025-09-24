@@ -1,0 +1,88 @@
+@primary-color: #1677ff;
+
+body {
+  margin: 0;
+  background-color: #f5f7fa;
+  color: #1f2933;
+}
+
+.ant-layout {
+  min-height: 100vh;
+}
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-content {
+  flex: 1 1 auto;
+  padding: 24px 32px 48px;
+}
+
+.app-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.graph-container {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.info-banner {
+  margin-bottom: 16px;
+}
+
+.graph-popover-card {
+  position: absolute;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.16);
+  padding: 16px;
+  width: 280px;
+  z-index: 10;
+}
+
+.graph-legend {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.graph-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #4b5563;
+}
+
+.graph-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.search-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.twin-panels {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 992px) {
+  .twin-panels {
+    grid-template-columns: 2fr 1fr;
+  }
+}

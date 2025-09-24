@@ -1,0 +1,68 @@
+{
+  "nodes": [
+    {
+      "id": "N-NSK-SRC-001",
+      "name": "Котельная №1 (Советский)",
+      "type": "source",
+      "district": "Советский",
+      "x": 100,
+      "y": 200
+    },
+    {
+      "id": "N-NSK-J-002",
+      "name": "Узел Академгородок",
+      "type": "junction",
+      "district": "Советский",
+      "x": 350,
+      "y": 220
+    },
+    {
+      "id": "N-NSK-HS-013",
+      "name": "Теплоузел №13, ул. Николаева",
+      "type": "heat_substation",
+      "district": "Советский",
+      "address": "ул. Николаева, Новосибирск",
+      "x": 600,
+      "y": 260
+    }
+  ],
+  "edges": [
+    {
+      "id": "E-NSK-101",
+      "from": "N-NSK-SRC-001",
+      "to": "N-NSK-J-002",
+      "directed": true,
+      "plan": {
+        "diameter_mm": 400,
+        "flow_kg_s_plan": 80,
+        "pressure_bar_plan": 8,
+        "temp_c_plan_min": 65,
+        "temp_c_plan_max": 80
+      }
+    },
+    {
+      "id": "E-NSK-104",
+      "from": "N-NSK-J-002",
+      "to": "N-NSK-HS-013",
+      "directed": true,
+      "plan": {
+        "diameter_mm": 250,
+        "flow_kg_s_plan": 25,
+        "pressure_bar_plan": 6,
+        "temp_c_plan_min": 60,
+        "temp_c_plan_max": 75
+      }
+    },
+    {
+      "id": "E-NSK-109",
+      "from": "N-NSK-HS-013",
+      "to": "N-NSK-SRC-001",
+      "directed": true,
+      "plan": {
+        "diameter_mm": 250,
+        "flow_kg_s_plan": 25,
+        "pressure_bar_plan": 1.5
+      }
+    }
+  ]
+}

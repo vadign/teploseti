@@ -1,0 +1,53 @@
+[
+  {
+    "id": "EV-0001",
+    "objectType": "edge",
+    "objectId": "E-NSK-104",
+    "type": "pressure_low",
+    "severity": "critical",
+    "timestamp": "2025-09-20T07:30:00",
+    "measuredValue": 3.0,
+    "expectedMin": 5.5,
+    "expectedMax": 7.0,
+    "rule": {
+      "id": "PRESSURE_MIN_GV",
+      "regulationId": "MINENERGO-511",
+      "version": "2025.05"
+    },
+    "sourceSystem": "Цифровые модели теплоснабжения",
+    "comment": "Падение давления на участке к ТУ-13"
+  },
+  {
+    "id": "EV-0002",
+    "objectType": "node",
+    "objectId": "N-NSK-HS-013",
+    "type": "temperature_low",
+    "severity": "warning",
+    "timestamp": "2025-09-20T07:45:00",
+    "measuredValue": 42,
+    "expectedMin": 50,
+    "expectedMax": 60,
+    "rule": {
+      "id": "TEMP_RETURN_MIN",
+      "regulationId": "PP-1034",
+      "version": "2024.12"
+    },
+    "sourceSystem": "Цифровые модели теплоснабжения",
+    "comment": "Низкая температура обратки по графику"
+  },
+  {
+    "id": "EV-0003",
+    "objectType": "node",
+    "objectId": "N-NSK-HS-013",
+    "type": "data_completeness",
+    "severity": "info",
+    "timestamp": "2025-09-21T10:00:00",
+    "rule": {
+      "id": "COMPLETENESS_CHECK",
+      "regulationId": "PP-808",
+      "version": "2025.03"
+    },
+    "sourceSystem": "ETL/Валидация",
+    "comment": "Отсутствует паспорт диаметров для обратки (справочные данные)"
+  }
+]
