@@ -40,7 +40,6 @@ dayjs.extend(isBetween);
 interface EventRow extends DeviationEvent {
   objectName?: string;
   district?: string;
-  regulationTitle?: string;
 }
 
 const severityIcons: Record<Severity, ReactNode> = {
@@ -72,7 +71,6 @@ const EventsView = () => {
   const getObjectDistrict = useAppStore((state) => state.getObjectDistrict);
   const getNodeById = useAppStore((state) => state.getNodeById);
   const network = useAppStore((state) => state.network);
-  const regulations = useAppStore((state) => state.regulations);
 
   useEffect(() => {
     const objectId = searchParams.get('objectId');
@@ -132,8 +130,7 @@ const EventsView = () => {
       .map((event) => ({
         ...event,
         objectName: getObjectName(event.objectId),
-        district: getObjectDistrict(event.objectId),
-        regulationTitle: regulations.find((reg) => reg.id === event.rule.regulationId)?.title
+        district: getObjectDistrict(event.objectId)
       }));
   }, [
     allEvents,
@@ -147,7 +144,6 @@ const EventsView = () => {
     getObjectDistrict,
     getObjectName,
     network.edges,
-    regulations
   ]);
 
   const severityCounters = useMemo(() => {
@@ -228,32 +224,19 @@ const EventsView = () => {
         )
     },
     {
-      title: 'Правило / Регламент',
+      title: 'Правило',
       dataIndex: 'rule',
       key: 'rule',
-      width: 220,
+      width: 160,
       render: (_: unknown, record) => (
         <Space direction="vertical" size={4} style={{ width: '100%' }}>
           <Tag color="purple" className="text-ellipsis">
             {record.rule.id}
           </Tag>
-          <Typography.Text className="text-ellipsis">
-            {record.regulationTitle ?? record.rule.regulationId}
-          </Typography.Text>
           <Typography.Text type="secondary" className="text-ellipsis">
             Версия: {record.rule.version}
           </Typography.Text>
         </Space>
-      )
-    },
-    {
-      title: 'Источник',
-      dataIndex: 'sourceSystem',
-      key: 'sourceSystem',
-      width: 160,
-      ellipsis: true,
-      render: (value?: string) => (
-        <Typography.Text className="text-ellipsis">{value ?? '—'}</Typography.Text>
       )
     },
     {
@@ -268,7 +251,7 @@ const EventsView = () => {
     {
       title: 'Действия',
       key: 'actions',
-      width: 180,
+      width: 160,
       render: (_: unknown, record) => {
         const twinId = (() => {
           if (record.objectType === 'node') {
@@ -288,15 +271,20 @@ const EventsView = () => {
         })();
 
         return (
-          <Space>
+          <Space size={4} wrap>
             <Button
               type="link"
+              size="small"
               disabled={!twinId}
               onClick={() => twinId && navigate(`/dt/${twinId}`)}
             >
               Карточка ЦД
             </Button>
-            <Button type="link" onClick={() => navigate(`/graph?focus=${record.objectId}`)}>
+            <Button
+              type="link"
+              size="small"
+              onClick={() => navigate(`/graph?focus=${record.objectId}`)}
+            >
               Показать на графе
             </Button>
           </Space>
