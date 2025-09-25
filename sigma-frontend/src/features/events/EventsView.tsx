@@ -224,22 +224,6 @@ const EventsView = () => {
         )
     },
     {
-      title: 'Правило',
-      dataIndex: 'rule',
-      key: 'rule',
-      width: 160,
-      render: (_: unknown, record) => (
-        <Space direction="vertical" size={4} style={{ width: '100%' }}>
-          <Tag color="purple" className="text-ellipsis">
-            {record.rule.id}
-          </Tag>
-          <Typography.Text type="secondary" className="text-ellipsis">
-            Версия: {record.rule.version}
-          </Typography.Text>
-        </Space>
-      )
-    },
-    {
       title: 'Комментарий',
       dataIndex: 'comment',
       key: 'comment',
