@@ -1,6 +1,6 @@
 import { Button, Card, Checkbox, Col, Input, Row, Select, Space, Tag, Typography } from 'antd';
 import dayjs from 'dayjs';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import ForceGraph2D, { ForceGraphMethods } from 'react-force-graph-2d';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import SemanticsBanner from '../../components/SemanticsBanner';
@@ -48,6 +48,11 @@ const GraphView = () => {
   const [districtFilter, setDistrictFilter] = useState<string[]>([]);
   const [layers, setLayers] = useState<LayerType[]>(['supply', 'return']);
   const [popover, setPopover] = useState<PopoverState | null>(null);
+  const canvasContainerRef = useRef<HTMLDivElement>(null);
+  const [{ width: canvasWidth, height: canvasHeight }, setCanvasSize] = useState({
+    width: 0,
+    height: 0
+  });
 
   const network = useAppStore((state) => state.network);
   const selectedDate = useAppStore((state) => state.ui.selectedDate);
@@ -103,6 +108,27 @@ const GraphView = () => {
       return nodeSet.has(edge.from) && nodeSet.has(edge.to);
     });
   }, [network.edges, nodeSet, activeLayers, edgeLayerMap]);
+
+  useLayoutEffect(() => {
+    const element = canvasContainerRef.current;
+    if (!element) {
+      return;
+    }
+
+    const observer = new ResizeObserver((entries) => {
+      const entry = entries[0];
+      if (entry) {
+        const { width, height } = entry.contentRect;
+        setCanvasSize({ width, height });
+      }
+    });
+
+    observer.observe(element);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   const focusId = searchParams.get('focus');
 
@@ -223,10 +249,17 @@ const GraphView = () => {
           <Tag color="geekblue">Дата среза: {dayjs(selectedDate).format('DD.MM.YYYY')}</Tag>
         </Col>
       </Row>
-      <div style={{ flex: 1, minHeight: 320, position: 'relative' }}>
+      <div
+        ref={canvasContainerRef}
+        style={{ flex: 1, minHeight: 320, position: 'relative', minWidth: 0 }}
+      >
         <ForceGraph2D
           ref={graphRef}
           graphData={{ nodes: filteredNodes, links: filteredLinks }}
+          width={canvasWidth || undefined}
+          height={canvasHeight || undefined}
+          linkSource="from"
+          linkTarget="to"
           nodeLabel={(node: GraphNode) => node.label}
           linkDirectionalArrowLength={6}
           linkDirectionalArrowRelPos={0.9}
