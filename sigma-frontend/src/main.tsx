@@ -23,7 +23,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       }}
     >
       <AntApp>
-        <RouterProvider router={router} />
+        <div className="app-viewport">
+          <RouterProvider router={router} />
+        </div>
       </AntApp>
     </ConfigProvider>
   </React.StrictMode>

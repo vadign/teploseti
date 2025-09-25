@@ -35,7 +35,7 @@ const Breadcrumbs = () => {
     return crumbs;
   }, [focused, getObjectName, location.pathname, objectFilter, params.id]);
 
-  return <Breadcrumb style={{ marginBottom: 16 }} items={items} />;
+  return <Breadcrumb className="breadcrumbs" items={items} />;
 };
 
 export default Breadcrumbs;

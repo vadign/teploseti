@@ -20,32 +20,36 @@ const TwinHeader = ({ twin, onShowEvents, onShowGraph }: TwinHeaderProps) => {
     <div style={{ marginBottom: 24 }}>
       <Space direction="vertical" size={8} style={{ width: '100%' }}>
         <Space align="center" size={12} wrap>
-          <Typography.Title level={3} style={{ margin: 0 }}>
+          <Typography.Title level={3} style={{ margin: 0 }} className="text-ellipsis" title={twin.name}>
             {twin.name}
           </Typography.Title>
-          <Tag icon={<BankOutlined />} color="geekblue">
+          <Tag icon={<BankOutlined />} color="geekblue" className="text-ellipsis">
             {nodeTypeLabels[twin.type]}
           </Tag>
         </Space>
         {twin.address ? (
-          <Typography.Text type="secondary">
+          <Typography.Text type="secondary" className="text-ellipsis" title={twin.address}>
             <EnvironmentOutlined /> {twin.address}
           </Typography.Text>
         ) : null}
-        <Typography.Text type="secondary">Район: {twin.district}</Typography.Text>
+        <Typography.Text type="secondary" className="text-ellipsis">
+          Район: {twin.district}
+        </Typography.Text>
         <Space wrap>
           {chips.map((chip) => (
-            <Tag key={chip.key} color={severityColors[chip.key]} style={{ fontSize: 14 }}>
+            <Tag key={chip.key} color={severityColors[chip.key]} style={{ fontSize: 14 }} className="text-ellipsis">
               {chip.label}: {chip.value}
             </Tag>
           ))}
-          <Tag color="default" style={{ fontSize: 14 }}>
+          <Tag color="default" style={{ fontSize: 14 }} className="text-ellipsis">
             Всего событий: {twin.eventsCount.total}
           </Tag>
         </Space>
         <Space align="center" size={16} wrap>
           <span style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <Typography.Text strong>Полнота карточки:</Typography.Text>
+            <Typography.Text strong className="text-ellipsis">
+              Полнота карточки:
+            </Typography.Text>
             <Progress percent={twin.completenessPct} size="small" strokeColor="#1677ff" />
           </span>
           <Space>

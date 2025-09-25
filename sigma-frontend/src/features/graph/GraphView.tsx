@@ -223,7 +223,7 @@ const GraphView = () => {
           <Tag color="geekblue">Дата среза: {dayjs(selectedDate).format('DD.MM.YYYY')}</Tag>
         </Col>
       </Row>
-      <div style={{ height: 520, position: 'relative' }}>
+      <div style={{ flex: 1, minHeight: 320, position: 'relative' }}>
         <ForceGraph2D
           ref={graphRef}
           graphData={{ nodes: filteredNodes, links: filteredLinks }}

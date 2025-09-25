@@ -52,7 +52,7 @@ const TwinCardView = () => {
 
   if (!id || !node || node.type !== 'heat_substation' || !twin) {
     return (
-      <Card className="app-card">
+      <Card className="app-card twin-card">
         <Result
           status="404"
           title="Карточка недоступна"
@@ -68,7 +68,7 @@ const TwinCardView = () => {
   }
 
   return (
-    <Card className="app-card">
+    <Card className="app-card twin-card">
       <SemanticsBanner />
       <TwinHeader
         twin={twin}

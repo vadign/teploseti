@@ -166,16 +166,22 @@ const EventsView = () => {
       title: 'Время',
       dataIndex: 'timestamp',
       key: 'timestamp',
-      render: (value: string) => formatDateTime(value)
+      width: 160,
+      ellipsis: true,
+      render: (value: string) => (
+        <Typography.Text className="text-ellipsis">{formatDateTime(value)}</Typography.Text>
+      )
     },
     {
       title: 'Тип события',
       dataIndex: 'type',
       key: 'type',
+      width: 180,
+      ellipsis: true,
       render: (value: DeviationEvent['type']) => (
-        <Space>
+        <Space size={8}>
           {eventTypeIcons[value]}
-          <Typography.Text>{eventTypeLabels[value]}</Typography.Text>
+          <Typography.Text className="text-ellipsis">{eventTypeLabels[value]}</Typography.Text>
         </Space>
       )
     },
@@ -183,18 +189,26 @@ const EventsView = () => {
       title: 'Критичность',
       dataIndex: 'severity',
       key: 'severity',
+      width: 140,
       render: (value: Severity) => <SeverityTag severity={value} />
     },
     {
       title: 'Объект',
       dataIndex: 'objectName',
       key: 'objectName',
+      width: 260,
       render: (_: unknown, record) => (
-        <Space direction="vertical">
-          <Typography.Text strong>{record.objectName ?? record.objectId}</Typography.Text>
-          <Typography.Text type="secondary">{record.objectId}</Typography.Text>
+        <Space direction="vertical" size={4} style={{ width: '100%' }}>
+          <Typography.Text strong className="text-ellipsis">
+            {record.objectName ?? record.objectId}
+          </Typography.Text>
+          <Typography.Text type="secondary" className="text-ellipsis">
+            {record.objectId}
+          </Typography.Text>
           {record.district ? (
-            <Tag color="blue">{record.district}</Tag>
+            <Tag color="blue" className="text-ellipsis">
+              {record.district}
+            </Tag>
           ) : (
             <Tag>Не определён</Tag>
           )}
@@ -205,18 +219,30 @@ const EventsView = () => {
       title: 'Значение / Диапазон',
       dataIndex: 'measuredValue',
       key: 'value',
+      ellipsis: true,
       render: (_: unknown, record) =>
-        formatValueRange(record.measuredValue, record.expectedMin, record.expectedMax)
+        (
+          <Typography.Text className="text-ellipsis">
+            {formatValueRange(record.measuredValue, record.expectedMin, record.expectedMax)}
+          </Typography.Text>
+        )
     },
     {
       title: 'Правило / Регламент',
       dataIndex: 'rule',
       key: 'rule',
+      width: 220,
       render: (_: unknown, record) => (
-        <Space direction="vertical">
-          <Tag color="purple">{record.rule.id}</Tag>
-          <Typography.Text>{record.regulationTitle ?? record.rule.regulationId}</Typography.Text>
-          <Typography.Text type="secondary">Версия: {record.rule.version}</Typography.Text>
+        <Space direction="vertical" size={4} style={{ width: '100%' }}>
+          <Tag color="purple" className="text-ellipsis">
+            {record.rule.id}
+          </Tag>
+          <Typography.Text className="text-ellipsis">
+            {record.regulationTitle ?? record.rule.regulationId}
+          </Typography.Text>
+          <Typography.Text type="secondary" className="text-ellipsis">
+            Версия: {record.rule.version}
+          </Typography.Text>
         </Space>
       )
     },
@@ -224,17 +250,25 @@ const EventsView = () => {
       title: 'Источник',
       dataIndex: 'sourceSystem',
       key: 'sourceSystem',
-      render: (value?: string) => value ?? '—'
+      width: 160,
+      ellipsis: true,
+      render: (value?: string) => (
+        <Typography.Text className="text-ellipsis">{value ?? '—'}</Typography.Text>
+      )
     },
     {
       title: 'Комментарий',
       dataIndex: 'comment',
       key: 'comment',
-      render: (value?: string) => value ?? '—'
+      ellipsis: true,
+      render: (value?: string) => (
+        <Typography.Text className="text-ellipsis">{value ?? '—'}</Typography.Text>
+      )
     },
     {
       title: 'Действия',
       key: 'actions',
+      width: 180,
       render: (_: unknown, record) => {
         const twinId = (() => {
           if (record.objectType === 'node') {
@@ -272,7 +306,7 @@ const EventsView = () => {
   ];
 
   return (
-    <Card className="app-card">
+    <Card className="app-card events-card">
       <SemanticsBanner />
       <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
         <Space size={24} wrap>
@@ -398,13 +432,15 @@ const EventsView = () => {
           </Col>
         </Row>
       </Form>
-      <Table
-        rowKey="id"
-        columns={columns}
-        dataSource={filteredEvents}
-        pagination={{ pageSize: 8 }}
-        scroll={{ x: true }}
-      />
+      <div className="events-table-wrapper">
+        <Table
+          rowKey="id"
+          columns={columns}
+          dataSource={filteredEvents}
+          pagination={{ pageSize: 8 }}
+          scroll={{ x: 1400, y: 320 }}
+        />
+      </div>
     </Card>
   );
 };

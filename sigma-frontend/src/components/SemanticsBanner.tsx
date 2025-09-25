@@ -13,10 +13,10 @@ const SemanticsBanner = () => {
         className="info-banner"
         message="Семантика мониторинга"
         description={
-          <>
+          <span className="text-ellipsis" title={message}>
             {message}{' '}
             <Typography.Link onClick={() => setOpen(true)}>Подробнее</Typography.Link>
-          </>
+          </span>
         }
         type="info"
         showIcon

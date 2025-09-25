@@ -38,25 +38,17 @@ const Topbar = () => {
   );
 
   return (
-    <Header
-      style={{
-        background: '#ffffff',
-        padding: '0 32px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        boxShadow: '0 4px 12px rgba(15, 23, 42, 0.08)',
-        zIndex: 20
-      }}
-    >
-      <Space size={24} align="center">
-        <div>
-          <Typography.Title level={4} style={{ margin: 0 }}>
+    <Header className="topbar">
+      <div className="topbar-left">
+        <div className="topbar-title">
+          <Typography.Title level={4} className="text-ellipsis">
             Сигма · Теплосеть (Новосибирск)
           </Typography.Title>
-          <Typography.Text type="secondary">Мониторинг отклонений и регламентов</Typography.Text>
+          <Typography.Text type="secondary" className="text-ellipsis">
+            Мониторинг отклонений и регламентов
+          </Typography.Text>
         </div>
-        <Space.Compact>
+        <Space.Compact className="topbar-actions">
           <Button
             type={activeKey === 'graph' ? 'primary' : 'default'}
             icon={<ClusterOutlined />}
@@ -73,7 +65,7 @@ const Topbar = () => {
           </Button>
         </Space.Compact>
         <Select
-          style={{ width: 320 }}
+          className="topbar-select"
           placeholder="Цифровой двойник"
           value={activeKey === 'dt' ? location.pathname.replace('/dt/', '') : undefined}
           showSearch
@@ -90,10 +82,11 @@ const Topbar = () => {
             }
           }}
         />
-      </Space>
-      <Space align="center" size={16}>
+      </div>
+      <div className="topbar-right">
         <CalendarOutlined style={{ color: '#1677ff', fontSize: 18 }} />
         <DatePicker
+          className="topbar-date-picker"
           value={dayjs(selectedDate)}
           format="DD.MM.YYYY"
           onChange={(value) => {
@@ -102,7 +95,7 @@ const Topbar = () => {
             setFilters({ dateRange: [next, next] });
           }}
         />
-      </Space>
+      </div>
     </Header>
   );
 };
